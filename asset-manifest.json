@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/lya-electronic-test/static/css/main.2cf051ca.chunk.css",
-    "main.js": "/lya-electronic-test/static/js/main.3330b554.chunk.js",
-    "main.js.map": "/lya-electronic-test/static/js/main.3330b554.chunk.js.map",
+    "main.js": "/lya-electronic-test/static/js/main.77b926f0.chunk.js",
+    "main.js.map": "/lya-electronic-test/static/js/main.77b926f0.chunk.js.map",
     "runtime-main.js": "/lya-electronic-test/static/js/runtime-main.d8dcda63.js",
     "runtime-main.js.map": "/lya-electronic-test/static/js/runtime-main.d8dcda63.js.map",
     "static/css/2.e719a111.chunk.css": "/lya-electronic-test/static/css/2.e719a111.chunk.css",
@@ -22,6 +22,6 @@
     "static/css/2.e719a111.chunk.css",
     "static/js/2.00861781.chunk.js",
     "static/css/main.2cf051ca.chunk.css",
-    "static/js/main.3330b554.chunk.js"
+    "static/js/main.77b926f0.chunk.js"
   ]
 }
