@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {Button, Card, Col, Container, Row, Form} from "react-bootstrap";
 import DatePicker from "react-datepicker";
-import {createTodoData, setCompleteTodoData} from "../../redux/actions/todoListActions";
+import {createToDoAPI, dataToDoAPI, deleteToDoAPI, editToDoAPI} from "../../redux/apiFuntions";
 const moment = require('moment');
 const Home = () => {
     const dispatch = useDispatch();
@@ -11,33 +11,28 @@ const Home = () => {
         title: "0",
         description: "",
     };
+    useEffect(()=>{
+        dataToDoAPI(dispatch)
+    }, [])
+    let todoListData = useSelector((state)=>state.todoList);
     const [todoDataCreate, setTodoDataCreate] = useState(initData);
     const [editTodo, setEditTodo] = useState(false);
-    let dataUser = useSelector((state)=>state.user);
-    let todoList = useSelector((state)=>state.todoList);
-    todoList.sort((a, b)=> {
-        if (a.dateMax > b.dateMax) return 1;
-        if (a.dateMax < b.dateMax) return -1;
-        return 0;
-    });
-    const createTodo = (e)=>{
+    const createTodo = async (e)=>{
         e.preventDefault();
         let date =  new Date();
         const setData = {
-            idUser: 1,
             dateMax: todoDataCreate.dateMax,
             title: todoDataCreate.title,
             description: todoDataCreate.description,
             complete: false,
-            createAt: date,
-            updateAt: date
+            createAt: date
         };
-        dispatch(createTodoData(setData));
+       await createToDoAPI(dispatch, setData);
         setTodoDataCreate(initData);
     }
-    const changeComplete = (id) =>{
-        dispatch(setCompleteTodoData(id));
-    }
+    const changeComplete = async (data) => await editToDoAPI(dispatch, data);
+    const deleteToDo = async (data) => await deleteToDoAPI(dispatch, data);
+
   return <div className="py-4">
         <Container>
             <Row>
@@ -74,10 +69,10 @@ const Home = () => {
                     </Card>
                 </Col>
                 <Col xs={12} md={6}>
-                    {todoList.length===0?(
+                    {todoListData.length===0?(
                         <div>noData</div>
                     ):(
-                        todoList.map((todoL, key)=>{
+                        todoListData.map((todoL, key)=>{
                             return <Card key={key} className={todoL.title==="1"?('border border-primary my-2'):
                                 todoL.title==="2"?('border border-warning my-2'):
                                     todoL.title==="3"?('border border-danger my-2'):('my-2')}>
@@ -92,11 +87,11 @@ const Home = () => {
                                 </Card.Body>
                                 <Card.Footer>
                                     <div className="d-flex justify-content-between align-items-center">
-                                        <Form.Check checked={todoL.complete} type="checkbox" label="Complete?" onChange={()=>changeComplete(todoL.id)} />
+                                        <Form.Check checked={todoL.complete} type="checkbox" label="Complete?" onChange={()=>changeComplete(todoL)} />
                                         <Button variant={"primary"}>
                                             Edit
                                         </Button>
-                                        <Button variant={"danger"}>
+                                        <Button variant={"danger"} onClick={()=>deleteToDo(todoL)}>
                                             Delete
                                         </Button>
                                     </div>

@@ -12,3 +12,9 @@ export const setCompleteTodoData = (todoList) => {
         payload: todoList,
     };
 };
+export const initTodoData = (todoList) => {
+    return {
+        type: ActionTypes.INIT_TODO_LIST,
+        payload: todoList,
+    };
+};
