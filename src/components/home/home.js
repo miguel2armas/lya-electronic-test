@@ -9,7 +9,7 @@ import {ImSortAmountDesc} from "react-icons/all";
 const Home = () => {
     const dispatch = useDispatch();
     let todoListData = useSelector((state)=>state.todoList);
-    const [selectOrder, setSelectOrder] = useState("");
+    const [selectOrder, setSelectOrder] = useState("description");
     const [todoListDataState, setTodoListDataState] = useState([]);
     const [todoListload, settodoListload] = useState(false);
     const todoListDataChage = () => settodoListload(true);
@@ -26,13 +26,29 @@ const Home = () => {
     const changeOrder = (e) =>{
         e.preventDefault();
         todoListDataState.sort(function (a, b) {
-            if (a.description > b.description) {
-                return 1;
+            switch (selectOrder){
+                case "description":
+                    if (a.description > b.description) return 1;
+                    if (a.description < b.description) return -1;
+                    return 0;
+                case "title":
+                    if (a.title > b.title) return 1;
+                    if (a.title < b.title) return -1;
+                    return 0;
+                case "dateMax":
+                    if (a.dateMax > b.dateMax) return 1;
+                    if (a.dateMax < b.dateMax) return -1;
+                    return 0;
+                case "createAt":
+                    if (a.createAt > b.createAt) return 1;
+                    if (a.createAt < b.createAt) return -1;
+                    return 0;
+
+                default:
+                    return 0;
             }
-            if (a.description < b.description) {
-                return -1;
-            }
-            return 0;
+
+
         });
         setTodoListDataState(todoListDataState);
     }
