@@ -1,106 +1,85 @@
 import React, {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {Button, Card, Col, Container, Row, Form} from "react-bootstrap";
-import DatePicker from "react-datepicker";
-import {createToDoAPI, dataToDoAPI, deleteToDoAPI, editToDoAPI} from "../../redux/apiFuntions";
-const moment = require('moment');
+import {Button, Col, Container, Form, Row} from "react-bootstrap";
+import {dataToDoAPI} from "../../redux/apiFuntions";
+import TodoItem from "./todoItem";
+import logoImg from "../../assets/images/logo512.png"
+import TodoCreate from "./todoCreate";
+import {ImSortAmountDesc} from "react-icons/all";
 const Home = () => {
     const dispatch = useDispatch();
-    const initData = {
-        dateMax: new Date(),
-        title: "0",
-        description: "",
-    };
-    useEffect(()=>{
-        dataToDoAPI(dispatch)
-    }, [])
     let todoListData = useSelector((state)=>state.todoList);
-    const [todoDataCreate, setTodoDataCreate] = useState(initData);
-    const [editTodo, setEditTodo] = useState(false);
-    const createTodo = async (e)=>{
+    const [selectOrder, setSelectOrder] = useState("");
+    const [todoListDataState, setTodoListDataState] = useState([]);
+    const [todoListload, settodoListload] = useState(false);
+    const todoListDataChage = () => settodoListload(true);
+    useEffect(()=>{
+        if(todoListDataState.length===0){
+            todoListDataChage();
+        }
+        if(todoListload){
+            setTodoListDataState(todoListData);
+            settodoListload(false);
+        }
+        dataToDoAPI(dispatch);
+    }, [todoListData])
+    const changeOrder = (e) =>{
         e.preventDefault();
-        let date =  new Date();
-        const setData = {
-            dateMax: todoDataCreate.dateMax,
-            title: todoDataCreate.title,
-            description: todoDataCreate.description,
-            complete: false,
-            createAt: date
-        };
-       await createToDoAPI(dispatch, setData);
-        setTodoDataCreate(initData);
+        todoListDataState.sort(function (a, b) {
+            if (a.description > b.description) {
+                return 1;
+            }
+            if (a.description < b.description) {
+                return -1;
+            }
+            return 0;
+        });
+        setTodoListDataState(todoListDataState);
     }
-    const changeComplete = async (data) => await editToDoAPI(dispatch, data);
-    const deleteToDo = async (data) => await deleteToDoAPI(dispatch, data);
 
   return <div className="py-4">
         <Container>
-            <Row>
-                <Col xs={12} md={6}>
-                    <Card>
-                        <Form onSubmit={(e)=>createTodo(e)}>
-                        <Card.Body>
-                                <Form.Group className="mb-3">
-                                    <Form.Label>Title</Form.Label>
-                                    <Form.Select value={todoDataCreate.title} onChange={(e) => setTodoDataCreate({...todoDataCreate, title: e.target.value})}>
-                                        <option value="0">Regular To-Do</option>
-                                        <option value="1">Priority One</option>
-                                        <option value="2">Priority Two</option>
-                                        <option value="3">Priority Three</option>
-                                    </Form.Select>
-                                </Form.Group>
-                                <Form.Group className="mb-3">
-                                    <Form.Label>Description</Form.Label>
-                                    <Form.Control onChange={(e)=> setTodoDataCreate({...todoDataCreate, description: e.target.value})}
-                                                  as="textarea" rows={3} value={todoDataCreate.description}/>
-                                </Form.Group>
-                                <DatePicker
-                                    dateFormat="yyyy/MM/dd"
-                                    selected={todoDataCreate.dateMax}
-                                    onChange={(date) => setTodoDataCreate({...todoDataCreate, dateMax: date})}
-                                />
-                        </Card.Body>
-                        <Card.Footer className="text-end">
-                            <Button type={"submit"} variant={"success"}>
-                                Create To-Do
-                            </Button>
-                        </Card.Footer>
-                        </Form>
-                    </Card>
+            <Row className="justify-content-center">
+                <Col xs={12} md={8}>
+                    <TodoCreate todoListDataChage={todoListDataChage}/>
                 </Col>
-                <Col xs={12} md={6}>
-                    {todoListData.length===0?(
-                        <div>noData</div>
-                    ):(
-                        todoListData.map((todoL, key)=>{
-                            return <Card key={key} className={todoL.title==="1"?('border border-primary my-2'):
-                                todoL.title==="2"?('border border-warning my-2'):
-                                    todoL.title==="3"?('border border-danger my-2'):('my-2')}>
-                                <Card.Header className={todoL.complete?('bg-complete text-white'):('')}>
-                                    <div className="d-flex justify-content-between">
-                                        <span>Create: {moment(todoL.createAt).format("YYYY/MM/DD HH:mm")}</span>
-                                        <span>Expire: {moment(todoL.dateMax).format("YYYY/MM/DD")}</span>
-                                    </div>
-                                </Card.Header>
-                                <Card.Body>
-                                    {todoL.description}
-                                </Card.Body>
-                                <Card.Footer>
-                                    <div className="d-flex justify-content-between align-items-center">
-                                        <Form.Check checked={todoL.complete} type="checkbox" label="Complete?" onChange={()=>changeComplete(todoL)} />
-                                        <Button variant={"primary"}>
-                                            Edit
-                                        </Button>
-                                        <Button variant={"danger"} onClick={()=>deleteToDo(todoL)}>
-                                            Delete
-                                        </Button>
-                                    </div>
-                                </Card.Footer>
+                <Col xs={12} md={12}>
 
-                            </Card>
+                    {todoListDataState.length===0?(
+                        <></>
+                    ):(
+                        <div className="py-3">
+                            <Form onSubmit={(e)=>changeOrder(e)}>
+                                <Row>
+                                    <Col className="align-self-center" xs="auto">
+                                        Change order
+                                    </Col>
+                                    <Col xs="auto" className="pe-1">
+                                        <Form.Group as={Col} controlId="formGridState">
+                                            <Form.Select value={selectOrder} onChange={(e) => setSelectOrder(e.target.value)}>
+                                                <option value="title">title</option>
+                                                <option value="description">description</option>
+                                                <option value="dateMax">date of expire</option>
+                                                <option value="createAt">date create</option>
+                                            </Form.Select>
+                                        </Form.Group>
+                                    </Col>
+                                    <Col xs="auto" className="mx-3">
+                                        <Button variant="primary" type="submit">
+                                            <ImSortAmountDesc size="1.5em"/>
+                                        </Button>
+                                    </Col>
+                                </Row>
+                            </Form>
+                        </div>
+                    )}
+                    {todoListDataState.length===0?(
+                        <div className="text-center"><img src={logoImg} className="img-fluid"/></div>
+                    ):(
+                        todoListDataState.map((todoL, key)=>{
+                            return <TodoItem key={key} todoL={todoL} todoListDataChage={todoListDataChage}/>
                         })
-                    )
-                    }
+                    )}
                 </Col>
             </Row>
         </Container>

@@ -4,6 +4,7 @@ import {initTodoData} from "./actions/todoListActions";
 
 export const dataToDoAPI = async (dispatch) =>{
     const res = await axios.get('https://lya-electronic-test.herokuapp.com/api/ToDo');
+    res.data.reverse();
     dispatch(initTodoData(res.data));
 }
 export const createToDoAPI = async (dispatch, data) =>{
@@ -12,11 +13,14 @@ export const createToDoAPI = async (dispatch, data) =>{
 }
 
 export const editToDoAPI = async (dispatch, data) =>{
-    data = {...data, complete: !data.complete}
     await axios.put('https://lya-electronic-test.herokuapp.com/api/ToDo/'+data._id, data);
     await dataToDoAPI(dispatch);
 }
 export const deleteToDoAPI = async (dispatch, data) =>{
     await axios.delete('https://lya-electronic-test.herokuapp.com/api/ToDo/'+data._id);
     await dataToDoAPI(dispatch);
+}
+export const getGatFact = async () =>{
+   const res = await axios.get('https://catfact.ninja/facts');
+   return res.data;
 }
