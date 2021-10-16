@@ -1,27 +1,28 @@
 {
   "files": {
     "main.css": "/lya-electronic-test/static/css/main.2cf051ca.chunk.css",
-    "main.js": "/lya-electronic-test/static/js/main.77b926f0.chunk.js",
-    "main.js.map": "/lya-electronic-test/static/js/main.77b926f0.chunk.js.map",
-    "runtime-main.js": "/lya-electronic-test/static/js/runtime-main.d8dcda63.js",
-    "runtime-main.js.map": "/lya-electronic-test/static/js/runtime-main.d8dcda63.js.map",
+    "main.js": "/lya-electronic-test/static/js/main.e7b2c5c1.chunk.js",
+    "main.js.map": "/lya-electronic-test/static/js/main.e7b2c5c1.chunk.js.map",
+    "runtime-main.js": "/lya-electronic-test/static/js/runtime-main.76c9aa0c.js",
+    "runtime-main.js.map": "/lya-electronic-test/static/js/runtime-main.76c9aa0c.js.map",
     "static/css/2.e719a111.chunk.css": "/lya-electronic-test/static/css/2.e719a111.chunk.css",
-    "static/js/2.00861781.chunk.js": "/lya-electronic-test/static/js/2.00861781.chunk.js",
-    "static/js/2.00861781.chunk.js.map": "/lya-electronic-test/static/js/2.00861781.chunk.js.map",
-    "static/js/3.fba77583.chunk.js": "/lya-electronic-test/static/js/3.fba77583.chunk.js",
-    "static/js/3.fba77583.chunk.js.map": "/lya-electronic-test/static/js/3.fba77583.chunk.js.map",
+    "static/js/2.ad301a9c.chunk.js": "/lya-electronic-test/static/js/2.ad301a9c.chunk.js",
+    "static/js/2.ad301a9c.chunk.js.map": "/lya-electronic-test/static/js/2.ad301a9c.chunk.js.map",
+    "static/js/3.ed77d19d.chunk.js": "/lya-electronic-test/static/js/3.ed77d19d.chunk.js",
+    "static/js/3.ed77d19d.chunk.js.map": "/lya-electronic-test/static/js/3.ed77d19d.chunk.js.map",
     "index.html": "/lya-electronic-test/index.html",
     "static/css/2.e719a111.chunk.css.map": "/lya-electronic-test/static/css/2.e719a111.chunk.css.map",
     "static/css/main.2cf051ca.chunk.css.map": "/lya-electronic-test/static/css/main.2cf051ca.chunk.css.map",
-    "static/js/2.00861781.chunk.js.LICENSE.txt": "/lya-electronic-test/static/js/2.00861781.chunk.js.LICENSE.txt",
+    "static/js/2.ad301a9c.chunk.js.LICENSE.txt": "/lya-electronic-test/static/js/2.ad301a9c.chunk.js.LICENSE.txt",
+    "static/media/lock_Animation.cf7bed24.svg": "/lya-electronic-test/static/media/lock_Animation.cf7bed24.svg",
     "static/media/logo512.8036e316.png": "/lya-electronic-test/static/media/logo512.8036e316.png",
     "static/media/notifications.css": "/lya-electronic-test/static/media/notification.c5d9251e.ttf"
   },
   "entrypoints": [
-    "static/js/runtime-main.d8dcda63.js",
+    "static/js/runtime-main.76c9aa0c.js",
     "static/css/2.e719a111.chunk.css",
-    "static/js/2.00861781.chunk.js",
+    "static/js/2.ad301a9c.chunk.js",
     "static/css/main.2cf051ca.chunk.css",
-    "static/js/main.77b926f0.chunk.js"
+    "static/js/main.e7b2c5c1.chunk.js"
   ]
 }
